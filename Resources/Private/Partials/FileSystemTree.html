@@ -1,0 +1,29 @@
+<h2>Directory</h2>
+
+<f:render section="directory" arguments="{packageType: packageType, packageKey: packageKey, directory: directory}"/>
+
+<f:section name="directory">
+    <f:if condition="{directory.isDir}">
+        <f:then>
+            {directory.name}
+            <ul>
+                <f:for each="{directory.content}" as="file">
+                    <li><f:render section="directory" arguments="{directory: file, packageKey: packageKey, packageType: packageType}"/></li>
+                </f:for>
+            </ul>
+        </f:then>
+        <f:else>
+            <f:link.action action="show" arguments="{packageKey: packageKey, packageType: packageType, filePath: directory.path}" title="{directory.path}">
+
+                <f:if condition="{directory.active}">
+                    <f:then>
+                        <b>{directory.name}</b>
+                    </f:then>
+                    <f:else>
+                        {directory.name}
+                    </f:else>
+                </f:if>
+            </f:link.action>
+        </f:else>
+    </f:if>
+</f:section>

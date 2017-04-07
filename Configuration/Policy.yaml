@@ -1,0 +1,16 @@
+privilegeTargets:
+  'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+    'TechDivision.Neos.DocViewer:BackendModule':
+      matcher: 'method(TechDivision\Neos\DocViewer\Controller\PackagesController->.*Action())'
+    'TechDivision.Neos.DocViewer:BackendModule:Resource':
+      matcher: 'method(TechDivision\Neos\DocViewer\Controller\ResourceController->.*Action())'
+
+roles:
+  'TYPO3.Flow:Everybody':
+    privileges:
+      -
+        privilegeTarget: 'TechDivision.Neos.DocViewer:BackendModule'
+        permission: GRANT
+      -
+        privilegeTarget: 'TechDivision.Neos.DocViewer:BackendModule:Resource'
+        permission: GRANT

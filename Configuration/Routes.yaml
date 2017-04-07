@@ -1,0 +1,9 @@
+
+-
+  name:  'Fileprovider'
+  uriPattern: 'techdivision-docviewer/{packageType}/{packageKey}/{filePath}'
+  defaults:
+    '@package':    'TechDivision.Neos.DocViewer'
+    '@controller': 'Resource'
+    '@action':     'raw'
+  httpMethods: ['GET']

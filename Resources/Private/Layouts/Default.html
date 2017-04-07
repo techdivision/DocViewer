@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title><f:render section="Title" /></title>
+
+        <link rel="stylesheet" href="{f:uri.resource(path: 'resource://TYPO3.Twitter.Bootstrap/Public/2/css/bootstrap.min.css')}" />
+        <link rel="stylesheet" href="{f:uri.resource(path: 'resource://TechDivision.Neos.DocViewer/Public/Styles/Style.css')}" />
+        <f:base />
+    </head>
+    <body>
+        <f:flashMessages class="flashmessages" />
+
+        <h1><f:render section="Title" /></h1>
+        <f:render section="Content" />
+    </body>
+</html>

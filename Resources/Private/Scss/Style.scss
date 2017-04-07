@@ -1,0 +1,70 @@
+.neos.neos-module.neos-module-management-techDivisionNeosDocViewer {
+
+    a {
+        color: #00b5ff;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+    h2 {
+        font-size: 20px;
+    }
+    h3 {
+        font-size: 16px;
+    }
+
+    ul {
+        li {
+            list-style-type: disc;
+        }
+        list-style-position: inside;
+        margin-left: 18px;
+    }
+    ol {
+        li {
+            list-style-type: decimal;
+        }
+        list-style-position: inside;
+        margin-left: 18px;
+    }
+    ul ul, ol ul {
+        li {
+            list-style-type: circle;
+        }
+        list-style-position: inside;
+        margin-left: 18px;
+    }
+    ol ol, ul ol {
+
+        li {
+            list-style-type: lower-latin;
+        }
+        list-style-position: inside;
+        margin-left: 18px;
+    }
+
+    p {
+        margin: 0 0 10px;
+    }
+
+    pre {
+        padding: 9.5px;
+        margin: 0 0 10px;
+    }
+
+    em {
+        font-style: italic;
+    }
+    strong {
+		color: green;
+
+        font-weight: bold;
+    }
+
+    blockquote {
+        padding: 0 0 0 15px;
+        margin: 0 0 20px;
+        border-left: 5px solid #eee;
+    }
+}

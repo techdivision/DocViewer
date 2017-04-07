@@ -1,0 +1,19 @@
+{
+    "description": "This neos package enables you to read the docs of the installed packages",
+    "type": "neos-package",
+    "require": {
+        "typo3/flow": "*",
+        "gregwar/rst": "*"
+    },
+    "name": "techdivision/neos-docviewer",
+    "autoload": {
+        "psr-0": {
+            "TechDivision\\Neos\\DocViewer": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "TechDivision.Neos.DocViewer"
+        }
+    }
+}

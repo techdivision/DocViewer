@@ -1,0 +1,26 @@
+TYPO3:
+  Neos:
+    modules:
+      management:
+        submodules:
+          techDivisionNeosDocViewer:
+            label: 'DocViewer'
+            controller: 'TechDivision\Neos\DocViewer\Controller\PackagesController'
+            description: 'View the docs of installed packages'
+            icon: 'icon-book'
+            privilegeTarget: 'TechDivision.Neos.DocViewer:BackendModule'
+  Flow:
+    mvc:
+      routes:
+        'TechDivision.Neos.DocViewer':
+          position: 'before TYPO3.Neos'
+
+
+TechDivision:
+  Neos:
+    DocViewer:
+      # Files are searched for as entry file
+      entryFiles: [ 'Index', 'index', 'Readme' ]
+      parser:
+        markdown:
+          allowedFileExtensions: [ 'md', 'rst', 'txt' ]

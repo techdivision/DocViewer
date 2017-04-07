@@ -1,0 +1,20 @@
+<f:layout name="Default" />
+
+<f:section name="Title">{packageType} {packageKey}</f:section>
+
+<f:section name="Content">
+
+
+    <div class="neos-row-fluid">
+        <div class="neos-span3">
+            <f:render partial="FileSystemTree" arguments="{packageType: packageType, packageKey: packageKey, directory: directory}"/>
+        </div>
+        <div class="neos-span9">
+            <h2>File content</h2>
+            <f:format.raw>{doc}</f:format.raw>
+        </div>
+
+    </div>
+
+
+</f:section>
