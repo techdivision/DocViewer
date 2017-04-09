@@ -1,68 +1,44 @@
 .neos.neos-module.neos-module-management-techDivisionNeosDocViewer {
+    @import "Elements";
 
-    a {
-        color: #00b5ff;
-    }
 
-    h1 {
-        font-size: 24px;
-    }
-    h2 {
-        font-size: 20px;
-    }
-    h3 {
-        font-size: 16px;
-    }
+    .show {
+        position: relative;
+        .show-tree {
+            position: absolute;
+            width: 30px;
+            min-height: 100%;
+            background-color: #444444;
+            border-bottom: 1px solid #3f3f3f;
+            border-right: 1px solid #3f3f3f;
+            &:hover {
+                min-width: 50%;
+                .headline,.content {
+                    display: block;
+                }
+            }
+            .opener-wrapper {
+                margin: 6px;
+            }
+            .opener {
+                font-size: 20px;
 
-    ul {
-        li {
-            list-style-type: disc;
+            }
+            .headline {
+                display: none;
+                font-size: 20px;
+
+            }
+            .content {
+                display: none;
+                margin-left: 30px;
+            }
         }
-        list-style-position: inside;
-        margin-left: 18px;
-    }
-    ol {
-        li {
-            list-style-type: decimal;
+        .show-content {
+            margin-left: 30px;
+            padding: 10px;
+            background-color: #FFFFFF;
+            color: #000000;
         }
-        list-style-position: inside;
-        margin-left: 18px;
-    }
-    ul ul, ol ul {
-        li {
-            list-style-type: circle;
-        }
-        list-style-position: inside;
-        margin-left: 18px;
-    }
-    ol ol, ul ol {
-
-        li {
-            list-style-type: lower-latin;
-        }
-        list-style-position: inside;
-        margin-left: 18px;
-    }
-
-    p {
-        margin: 0 0 10px;
-    }
-
-    pre {
-        padding: 9.5px;
-        margin: 0 0 10px;
-    }
-
-    em {
-        font-style: italic;
-    }
-    strong {
-        font-weight: bold;
-    }
-
-    blockquote {
-        padding: 0 0 0 15px;
-        margin: 0 0 20px;
-        border-left: 5px solid #eee;
     }
 }

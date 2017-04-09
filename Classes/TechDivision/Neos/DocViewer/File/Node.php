@@ -15,6 +15,16 @@ class Node {
 	protected $name;
 
 	/**
+	 * @var string
+	 */
+	protected $packageType;
+
+	/**
+	 * @var string
+	 */
+	protected $packageKey;
+
+	/**
 	 * @var boolean
 	 */
 	protected $isDir;
@@ -32,7 +42,7 @@ class Node {
 	/**
 	 * @var array
 	 */
-	protected $info;
+	protected $info = array();
 
 	/**
 	 * @var array
@@ -45,12 +55,19 @@ class Node {
 	protected $active;
 
 	/**
+	 * @var boolean
+	 */
+	protected $isParseable;
+
+	/**
 	 * Node constructor.
 	 * @param $path
 	 */
-	public function __construct($path)
+	public function __construct($packageType, $packageKey, $path)
 	{
-
+		$this->packageType = $packageType;
+		$this->packageKey = $packageKey;
+		$this->path = $path;
 		$this->name = basename($path);
 		$this->isDir = is_dir($path);
 		$this->absolutePath = realpath($path);
@@ -138,6 +155,54 @@ class Node {
 	public function setActive($active)
 	{
 		$this->active = $active;
+	}
+
+	/**
+	 * @return boolean
+	 */
+	public function isIsParseable()
+	{
+		return $this->isParseable;
+	}
+
+	/**
+	 * @param boolean $isParseable
+	 */
+	public function setIsParseable($isParseable)
+	{
+		$this->isParseable = $isParseable;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPackageType()
+	{
+		return $this->packageType;
+	}
+
+	/**
+	 * @param string $packageType
+	 */
+	public function setPackageType($packageType)
+	{
+		$this->packageType = $packageType;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getPackageKey()
+	{
+		return $this->packageKey;
+	}
+
+	/**
+	 * @param string $packageKey
+	 */
+	public function setPackageKey($packageKey)
+	{
+		$this->packageKey = $packageKey;
 	}
 
 }

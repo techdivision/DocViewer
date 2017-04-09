@@ -4,6 +4,7 @@ namespace TechDivision\Neos\DocViewer\File;
 /*
  * This file is part of the TechDivision.Neos.DocViewer package.
  */
+use TechDivision\Neos\DocViewer\Util;
 use TYPO3\Flow\Annotations as Flow;
 
 class Tree {
@@ -21,9 +22,15 @@ class Tree {
 	 */
 	protected $entryFiles;
 
-	public function __construct($path)
+	/**
+	 * @var Parser
+	 */
+	protected $parser;
+
+	public function __construct($packageType, $packageKey)
 	{
-		$this->rootNode = $this->buildFsNode($path);
+		$this->parser = new Parser();
+		$this->rootNode = $this->buildFsNode($packageType, $packageKey);
 	}
 
 	/**
@@ -57,10 +64,12 @@ class Tree {
 
 	/**
 	 * Finds an entry file in base dir
-	 *
-	 * @param $directory
+	 * @return bool|Node
 	 */
 	public function findEntryFile() {
+		if(!$this->rootNode) {
+			return null;
+		}
 		foreach($this->entryFiles as $allowedFileName) {
 			/** @var Node $file */
 			foreach($this->rootNode->getContent() as &$file) {
@@ -73,6 +82,7 @@ class Tree {
 				}
 			}
 		}
+		return null;
 	}
 
 	public function getRootNode() {
@@ -85,22 +95,23 @@ class Tree {
 
 	/**
 	 * Builds up given folder path as composite
+	 * @param string $packageType
+	 * @param string $packageKey
 	 * @param string $path
-	 * @param $rootPath
 	 * @return null|Node
 	 */
-	protected function buildFsNode($path, $rootPath = null) {
+	protected function buildFsNode($packageType, $packageKey, $path = null) {
 
-		if(!$rootPath) {
-			$rootPath = $path;
+		if(!$path) {
+			$path = Util::getDocumentPath($packageType, $packageKey);
 		}
 
 		if(!file_exists($path)) {
 			return null;
 		}
 
-		$node = new Node($path);
-		$node->setPath(trim(str_replace($rootPath, '', $path), "/"));
+		$node = new Node($packageType, $packageKey, $path);
+		$node->setPath(trim(str_replace(Util::getDocumentPath($packageType, $packageKey), '', $path), "/"));
 		if($node->isIsDir()) {
 
 			$content = array();
@@ -110,9 +121,11 @@ class Tree {
 				if($element == '.' || $element == '..') {
 					continue;
 				}
-				$content[] = $this->buildFsNode($path . DIRECTORY_SEPARATOR . $element, $rootPath);
+				$content[] = $this->buildFsNode($packageType, $packageKey, $path . DIRECTORY_SEPARATOR . $element);
 			}
 			$node->setContent($content);
+		} else {
+			$node->setIsParseable($this->parser->isAllowed($node));
 		}
 		return $node;
 	}

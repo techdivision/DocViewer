@@ -1,29 +1,45 @@
-<h2>Directory</h2>
+{namespace td=TechDivision\Neos\DocViewer\ViewHelpers}
 
-<f:render section="directory" arguments="{packageType: packageType, packageKey: packageKey, directory: directory}"/>
 
-<f:section name="directory">
-    <f:if condition="{directory.isDir}">
+<div class="opener-wrapper">
+    <i class="icon-reorder opener"></i>
+</div>
+
+<div class="content">
+    <f:render section="node" arguments="{node: node}"/>
+</div>
+
+<f:section name="node">
+
+    <f:if condition="{node.isDir}">
         <f:then>
-            {directory.name}
+            {node.name}
             <ul>
-                <f:for each="{directory.content}" as="file">
-                    <li><f:render section="directory" arguments="{directory: file, packageKey: packageKey, packageType: packageType}"/></li>
+                <f:for each="{node.content}" as="nodeChild">
+                    <li><f:render section="node" arguments="{node: nodeChild}"/></li>
                 </f:for>
             </ul>
         </f:then>
         <f:else>
-            <f:link.action action="show" arguments="{packageKey: packageKey, packageType: packageType, filePath: directory.path}" title="{directory.path}">
-
-                <f:if condition="{directory.active}">
-                    <f:then>
-                        <b>{directory.name}</b>
-                    </f:then>
-                    <f:else>
-                        {directory.name}
-                    </f:else>
-                </f:if>
-            </f:link.action>
+            <f:if condition="{node.isParseable}">
+                <f:then>
+                    <f:link.action action="show" arguments="{packageKey: node.packageKey, packageType: node.packageType, filePath: node.path}" title="{node.path}">
+                        <f:if condition="{node.active}">
+                            <f:then>
+                                <b>{node.name}</b>
+                            </f:then>
+                            <f:else>
+                                {node.name}
+                            </f:else>
+                        </f:if>
+                    </f:link.action>
+                </f:then>
+                <f:else>
+                    <a href="{td:resourceUrl(packageType: node.packageType, packageKey: node.packageKey, filePath: node.path)}">
+                        {node.name}
+                    </a>
+                </f:else>
+            </f:if>
         </f:else>
     </f:if>
 </f:section>

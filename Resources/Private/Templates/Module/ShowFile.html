@@ -4,10 +4,9 @@
 
 <f:section name="Content">
 
-
     <div class="neos-row-fluid">
         <div class="neos-span3">
-            <f:render partial="FileSystemTree" arguments="{packageType: packageType, packageKey: packageKey, directory: directory}"/>
+            <f:render partial="FileSystemTree" arguments="{node: node}"/>
         </div>
         <div class="neos-span9">
             <h2>File content</h2>

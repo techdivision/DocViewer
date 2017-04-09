@@ -1,0 +1,21 @@
+<f:layout name="Default" />
+
+<f:section name="Title">{packageKey}</f:section>
+
+<f:section name="Content">
+
+
+    <div class="show">
+        <div class="show-tree">
+            <f:render partial="FileSystemTree" arguments="{node: node}"/>
+        </div>
+        <div class="show-content">
+            Documentation / {currentFile.path}:
+            <hr>
+            <f:format.raw>{doc}</f:format.raw>
+        </div>
+
+    </div>
+
+
+</f:section>

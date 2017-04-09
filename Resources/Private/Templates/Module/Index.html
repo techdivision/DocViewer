@@ -1,0 +1,19 @@
+<f:layout name="Default" />
+
+<f:section name="Title"></f:section>
+
+<f:section name="Content">
+
+    {f:translate(id: 'infotext')}
+
+    <f:for each="{packageGroups}" key="packageType" as="packageGroup">
+
+        <h3>{packageType}</h3>
+        <f:for each="{packageGroup}" key="packageKey" as="package">
+            <p>
+                <f:link.action action="show" arguments="{packageKey: packageKey, packageType: packageType}">{packageKey}</f:link.action>
+            </p>
+        </f:for>
+
+    </f:for>
+</f:section>

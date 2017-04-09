@@ -4,19 +4,29 @@ namespace TechDivision\Neos\DocViewer\File;
 /*
  * This file is part of the TechDivision.Neos.DocViewer package.
  */
+use TechDivision\Neos\DocViewer\Exceptions\ParsingNotAllowedException;
 use TYPO3\Flow\Annotations as Flow;
 
 class Parser {
 
+	/**
+	 * Suffix for all resources to avid webserver's file delivering
+	 * @var string
+	 */
+	protected static $resourceSuffix = '__docviwer';
 
-	protected $packageType;
+	/**
+	 * @param Node $node
+	 * @return bool
+	 */
+	public function isAllowed($node) {
 
-	protected $packageKey;
+		$nodeInfo = $node->getInfo();
 
-	public function __construct($packageType, $packageKey)
-	{
-		$this->packageType = $packageType;
-		$this->packageKey = $packageKey;
+		if(is_array($nodeInfo) && isset($nodeInfo['extension'])) {
+			return in_array($node->getInfo()['extension'], $this->markdownFileExtensions);
+		}
+		return false;
 	}
 
 	/**
@@ -32,7 +42,7 @@ class Parser {
 	 * @return string
 	 */
 	public static function urlEncodeFilePath($path) {
-		return urlencode($path) . '__docviwer';
+		return urlencode($path) . self::$resourceSuffix;
 	}
 
 	/**
@@ -41,20 +51,33 @@ class Parser {
 	 * @return mixed
 	 */
 	public static function urlDecodeFilePath($path) {
-		return preg_replace('/__docviwer$/', '', urldecode($path));
+		return preg_replace('/'. self::$resourceSuffix .'$/', '', urldecode($path));
+	}
+
+	/**
+	 * @param Node $node
+	 * @param string $path
+	 * @return string
+	 */
+	public static function buildResourceUrl($node, $path = null) {
+		if(!$path) {
+			$path = $node->getPath();
+		}
+		return 'techdivision-docviewer/' . $node->getPackageType() . "/" . $node->getPackageKey() . "/" . self::urlEncodeFilePath($path);
 	}
 
 	/**
 	 * Replaces src value attributes in given dom string
 	 * @param string $dom
+	 * @param Node $node
 	 * @return mixed
 	 */
-	protected function replaceSrcValues($dom) {
+	protected function replaceSrcValues($dom, $node) {
 		return preg_replace_callback(
 			'/src\s*=\s*\"(.+?)\"/',
-			function ($matches) {
+			function ($matches) use ($node) {
 				$src = $matches[1];
-				$src = 'techdivision-docviewer/' . $this->packageType . "/" . $this->packageKey . "/" . self::urlEncodeFilePath($src);
+				$src = self::buildResourceUrl($node, $src);
 				return 'src="' . $src . '"';
 			},
 			$dom);
@@ -63,16 +86,17 @@ class Parser {
 	/**
 	 * Replaces href value attributes in given dom string
 	 * @param string $dom
+	 * @param Node $node
 	 * @return mixed
 	 */
-	protected function replaceHrefValues($dom) {
+	protected function replaceHrefValues($dom, $node) {
 		return preg_replace_callback(
 			'/href\s*=\s*\"(.+?)\"/',
-			function ($matches) {
+			function ($matches) use ($node) {
 				$href = $matches[1];
 				if(strpos($href, 'http') !== 0) {
 					$href = trim($href, "./");
-					$href = 'neos/management/techDivisionNeosDocViewer/show?moduleArguments%5BpackageKey%5D=' . $this->packageKey . '&moduleArguments%5BpackageType%5D=' . $this->packageType . '&moduleArguments%5BfilePath%5D=' . $href;
+					$href = 'neos/management/techDivisionNeosDocViewer/show?moduleArguments%5BpackageKey%5D=' . $node->getPackageKey() . '&moduleArguments%5BpackageType%5D=' . $node->getPackageType() . '&moduleArguments%5BfilePath%5D=' . $href;
 				}
 				return 'href="' . $href . '"';
 			},
@@ -83,6 +107,7 @@ class Parser {
 	 * Parse the given file
 	 *
 	 * @param Node $node
+	 * @throws ParsingNotAllowedException
 	 * @return string
 	 */
 	public function parseFile($node) {
@@ -90,8 +115,10 @@ class Parser {
 			$content = file_get_contents($node->getAbsolutePath());
 			$parser = new \Parsedown();
 			$dom = $parser->text($content);
-			$dom = $this->replaceSrcValues($dom);
-			return $this->replaceHrefValues($dom);
+			$dom = $this->replaceSrcValues($dom, $node);
+			return $this->replaceHrefValues($dom, $node);
+		} else {
+			throw new ParsingNotAllowedException("Parsing of this file is not allowed. Allowed file types: " . join(", ", $this->markdownFileExtensions));
 		}
 	}
 }

@@ -7,9 +7,21 @@ namespace TechDivision\Neos\DocViewer\Controller;
 use TechDivision\Neos\DocViewer\File\Parser;
 use TechDivision\Neos\DocViewer\Util;
 use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Flow\Security\Authorization\PrivilegeManagerInterface;
 
+/**
+ * Rudimentary service for resources
+ *
+ * @Flow\Scope("singleton")
+ */
 class ResourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 {
+	/**
+	 * @Flow\Inject
+	 * @var PrivilegeManagerInterface
+	 */
+	protected $privilegeManager;
+
 	/**
 	 * @param string $packageType
 	 * @param string $packageKey
@@ -23,5 +35,6 @@ class ResourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 		$this->response->setHeader("Content-Type", $contentType);
 
 		return file_get_contents($filePath);
+
 	}
 }
