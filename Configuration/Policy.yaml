@@ -1,16 +1,16 @@
 privilegeTargets:
   'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
-    'TechDivision.Neos.DocViewer:Module':
-      matcher: 'method(TechDivision\Neos\DocViewer\Controller\ModuleController->.*Action())'
-    'TechDivision.Neos.DocViewer:Module:Resource':
-      matcher: 'method(TechDivision\Neos\DocViewer\Controller\ResourceController->.*Action())'
+    'TechDivision.DocViewer:Module':
+      matcher: 'method(TechDivision\DocViewer\Controller\ModuleController->.*Action())'
+    'TechDivision.DocViewer:Module:Resource':
+      matcher: 'method(TechDivision\DocViewer\Controller\ResourceController->.*Action())'
 
 roles:
   'TYPO3.Neos:Editor':
     privileges:
       -
-        privilegeTarget: 'TechDivision.Neos.DocViewer:Module'
+        privilegeTarget: 'TechDivision.DocViewer:Module'
         permission: GRANT
       -
-        privilegeTarget: 'TechDivision.Neos.DocViewer:Module:Resource'
+        privilegeTarget: 'TechDivision.DocViewer:Module:Resource'
         permission: GRANT

@@ -1,11 +1,11 @@
 <?php
-namespace TechDivision\Neos\DocViewer\Controller;
+namespace TechDivision\DocViewer\Controller;
 
 /*
- * This file is part of the TechDivision.Neos.DocViewer package.
+ * This file is part of the TechDivision.DocViewer package.
  */
-use TechDivision\Neos\DocViewer\File\Parser;
-use TechDivision\Neos\DocViewer\Util;
+use TechDivision\DocViewer\File\Parser;
+use TechDivision\DocViewer\Util;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Security\Authorization\PrivilegeManagerInterface;
 
@@ -29,6 +29,10 @@ class ResourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 * @return mixed
 	 */
 	public function rawAction($packageType, $packageKey, $filePath) {
+
+		// @TODO check for visibility by given Settings.yaml
+		// @TODO fix for working Policy.yaml
+
 		$docDir = Util::getDocumentPath($packageType, $packageKey);
 		$filePath = $docDir . DIRECTORY_SEPARATOR . Parser::urlDecodeFilePath($filePath);
 		$contentType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $filePath);

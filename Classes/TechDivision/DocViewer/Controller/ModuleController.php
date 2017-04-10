@@ -1,13 +1,13 @@
 <?php
-namespace TechDivision\Neos\DocViewer\Controller;
+namespace TechDivision\DocViewer\Controller;
 
 /*
- * This file is part of the TechDivision.Neos.DocViewer package.
+ * This file is part of the TechDivision.DocViewer package.
  */
-use TechDivision\Neos\DocViewer\Exceptions\ParsingNotAllowedException;
-use TechDivision\Neos\DocViewer\File\Parser;
-use TechDivision\Neos\DocViewer\File\Tree;
-use TechDivision\Neos\DocViewer\Util;
+use TechDivision\DocViewer\Exceptions\ParsingNotAllowedException;
+use TechDivision\DocViewer\File\Parser;
+use TechDivision\DocViewer\File\Tree;
+use TechDivision\DocViewer\Util;
 use TYPO3\Flow\Annotations as Flow;
 
 class ModuleController extends \TYPO3\Flow\Mvc\Controller\ActionController
@@ -81,6 +81,9 @@ class ModuleController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 * @param string $filePath
 	 */
 	public function showAction($packageKey, $packageType, $filePath = null) {
+
+		// @TODO check for visibility by given Settings.yaml
+
 		$this->view->assign('packageKey', $packageKey);
 		$this->view->assign('packageType', $packageType);
 

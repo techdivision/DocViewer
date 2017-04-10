@@ -1,8 +1,8 @@
 <?php
-namespace TechDivision\Neos\DocViewer\File;
+namespace TechDivision\DocViewer\File;
 
 /*
- * This file is part of the TechDivision.Neos.DocViewer package.
+ * This file is part of the TechDivision.DocViewer package.
  */
 use TYPO3\Flow\Annotations as Flow;
 

@@ -1,5 +1,5 @@
 <?php
-namespace TechDivision\Neos\DocViewer\Exceptions;
+namespace TechDivision\DocViewer\Exceptions;
 
 /**
  * Parsing is not allowed exception

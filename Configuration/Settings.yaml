@@ -3,38 +3,37 @@ TYPO3:
     modules:
       management:
         submodules:
-          techDivisionNeosDocViewer:
+          techDivisionDocViewer:
             label: 'DocViewer'
-            controller: 'TechDivision\Neos\DocViewer\Controller\ModuleController'
+            controller: 'TechDivision\DocViewer\Controller\ModuleController'
             description: 'View the docs of installed packages'
             icon: 'icon-book'
-            privilegeTarget: 'TechDivision.Neos.DocViewer:BackendModule'
+            privilegeTarget: 'TechDivision.DocViewer:BackendModule'
   Flow:
     mvc:
       routes:
-        'TechDivision.Neos.DocViewer':
+        'TechDivision.DocViewer':
           position: 'before TYPO3.Neos'
 
 
 TechDivision:
-  Neos:
-    DocViewer:
-      packages:
-        # defines which types of packages are visible in which order
-        visibleTypes: [ 'Sites', 'Application', 'Framework' ]
-        hide:
-          - TYPO3.TypoScript
-         # - TYPO3.Imagine
-         # - TYPO3.Media
-         # - TYPO3.Form
-         # - TYPO3.Twitter.Bootstrap
-         # - TYPO3.Neos
-         # - TechDivision.Neos.DocViewer
-          - TYPO3.Fluid
-          - TYPO3.Eel
-         # - TYPO3.Flow
-      # Files are searched for as entry file
-      entryFiles: [ 'Readme', 'index', 'Index' ]
-      parser:
-        markdown:
-          allowedFileExtensions: [ 'md', 'rst', 'txt' ]
+  DocViewer:
+    packages:
+      # defines which types of packages are visible in which order
+      visibleTypes: [ 'Sites', 'Application', 'Framework' ]
+      hide:
+        - TYPO3.TypoScript
+        - TYPO3.Imagine
+        - TYPO3.Media
+        - TYPO3.Form
+        - TYPO3.Twitter.Bootstrap
+        - TYPO3.Neos
+        - TYPO3.Fluid
+        - TYPO3.Eel
+        - TYPO3.Flow
+        # - TechDivision.Neos.DocViewer
+    # Files are searched for as entry file
+    entryFiles: [ 'Readme', 'index', 'Index' ]
+    parser:
+      markdown:
+        allowedFileExtensions: [ 'md', 'rst', 'txt' ]

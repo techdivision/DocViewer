@@ -1,8 +1,8 @@
 <?php
-namespace TechDivision\Neos\DocViewer\ViewHelpers;
+namespace TechDivision\DocViewer\ViewHelpers;
 
-use TechDivision\Neos\DocViewer\File\Node;
-use TechDivision\Neos\DocViewer\File\Parser;
+use TechDivision\DocViewer\File\Node;
+use TechDivision\DocViewer\File\Parser;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 
