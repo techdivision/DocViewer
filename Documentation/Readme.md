@@ -1,35 +1,46 @@
-# TechDivision Neos DocViwer
+# TechDivision DocViwer
 
 ![TechDivision Logo](assets/TechDivisionLogo.jpeg)
 
 This packages provides a docviewer module for the neos backend.
 
-![TechDivision Logo](./assets/TechDivisionLogo.jpeg)
+Some examples:
 
-```
-var $some = "code";
-```
+[Internal link](./Ref.md)
 
-# Headline 1
+[Internal link subdir](subdir/Ref.md)
 
-![TechDivision Logo](assets/test.png)
-
-## Headline 2
-
-- [Ref](./Ref.md)
-- [Ref](Ref.md)
-- [Subdir ref](./subdir/SubDirRef.md)
-- [Subdir ref](subdir/SubDirRef.md)
-- [https://test.cherry-mx-com.cherry.cms.tdintern.de/](https://test.cherry-mx-com.cherry.cms.tdintern.de/)
-### Headline 3
+[External link](https://google.com/)
 
 *This text will be italic*
+
 _This will also be italic_
 
 **This text will be bold**
+
 __This will also be bold__
 
 _You **can** combine them_
 
-> We're living the future so
-> the present is our past.
+> An awesome quote
+
+```
+var $some = "code";
+```
+some ```inline``` code
+
+- an
+- unordered
+- list
+
+1. an 
+2. ordered
+3. list
+
+# Headline 1
+
+## Headline 2
+
+### Headline 3
+
+![Dummy image](https://dummyimage.com/300)

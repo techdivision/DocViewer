@@ -2,8 +2,14 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
 	<file original="" product-name="TechDivision.DocViewer" source-language="en" datatype="plaintext">
 		<body>
+			<trans-unit id="module.label" xml:space="preserve">
+				<source>DocViewer</source>
+			</trans-unit>
+			<trans-unit id="module.description" xml:space="preserve">
+				<source>This module allows to read the documentation of the installed packages by configuration.</source>
+			</trans-unit>
 			<trans-unit id="infotext" xml:space="preserve">
-				<source>This module renders the documentation of all installed packages.</source>
+				<source>This module renders the documentation of all installed packages which are visible by configuration.</source>
 			</trans-unit>
 		</body>
 	</file>

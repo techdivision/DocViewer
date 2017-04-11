@@ -32,7 +32,7 @@ var configuration = {
         dir: 'dist/.'
     },
     deploy: {
-        dir: '/var/www/dist/Packages/Application/TechDivision.Neos.DocViewer/',
+        dir: '/var/www/dist/Packages/Application/TechDivision.DocViewer/',
         src: [
             'dist/**/*',
             '!dist/.git{,/**}'
@@ -40,7 +40,7 @@ var configuration = {
     },
     docker: {
         container: process.env.DOCKER_CONTAINER_NAME,
-        basepath: '/var/www/dist/Packages/Application/TechDivision.Neos.DocViewer/'
+        basepath: '/var/www/dist/Packages/Application/TechDivision.DocViewer/'
     },
     extension: {
         dir_src: ''

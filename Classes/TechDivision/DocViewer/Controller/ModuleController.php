@@ -4,13 +4,20 @@ namespace TechDivision\DocViewer\Controller;
 /*
  * This file is part of the TechDivision.DocViewer package.
  */
+use TechDivision\DocViewer\Exceptions\PackageNotAccessableException;
 use TechDivision\DocViewer\Exceptions\ParsingNotAllowedException;
 use TechDivision\DocViewer\File\Parser;
 use TechDivision\DocViewer\File\Tree;
 use TechDivision\DocViewer\Util;
-use TYPO3\Flow\Annotations as Flow;
 
-class ModuleController extends \TYPO3\Flow\Mvc\Controller\ActionController
+use TYPO3\Flow\Annotations as Flow;
+use TYPO3\Neos\Controller\Module\AbstractModuleController;
+
+/**
+ *
+ * @Flow\Scope("singleton")
+ */
+class ModuleController extends AbstractModuleController
 {
 
 	/**
@@ -26,11 +33,18 @@ class ModuleController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 */
 	protected $packagesConfiguration;
 
+	/**
+	 * @Flow\Inject
+	 * @var \TechDivision\DocViewer\AccessManager
+	 */
+	protected $accessManager;
+
     /**
      * @return void
      */
     public function indexAction()
     {
+
 		$packageGroups = array();
 
 		foreach($this->packagesConfiguration['visibleTypes'] as $type) {
@@ -38,7 +52,7 @@ class ModuleController extends \TYPO3\Flow\Mvc\Controller\ActionController
 		}
 		foreach ($this->packageManager->getAvailablePackages() as $package) {
 
-			if(in_array($package->getPackageKey(), $this->packagesConfiguration['hide'])) {
+			if(!$this->accessManager->isPackageAccessable($package->getPackageKey())) {
 				continue;
 			}
 
@@ -50,7 +64,7 @@ class ModuleController extends \TYPO3\Flow\Mvc\Controller\ActionController
 				continue;
 			}
 
-			$tree = new Tree($packageGroup, $package->getPackageKey());
+			$tree = new Tree($packageGroup, $package->getPackageKey(), $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
 
 			if(!$tree->isDirectoryWithContent()) {
 				continue;
@@ -82,14 +96,16 @@ class ModuleController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 */
 	public function showAction($packageKey, $packageType, $filePath = null) {
 
-		// @TODO check for visibility by given Settings.yaml
+		$baseUri = $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri();
+
+		if (!$this->accessManager->isPackageAccessable($packageKey)) {
+			throw new PackageNotAccessableException("You are not allowed to access the package " . $packageKey);
+		}
 
 		$this->view->assign('packageKey', $packageKey);
 		$this->view->assign('packageType', $packageType);
 
-		$docDir = Util::getDocumentPath($packageType, $packageKey);
-
-		$tree = new Tree($packageType, $packageKey);
+		$tree = new Tree($packageType, $packageKey, $baseUri);
 
 		if(!$tree->isDirectoryWithContent()) {
 			$this->addFlashMessage('No documention could be found');
@@ -103,7 +119,7 @@ class ModuleController extends \TYPO3\Flow\Mvc\Controller\ActionController
 		}
 
 		if($file) {
-			$parser = new Parser();
+			$parser = new Parser($baseUri);
 			$this->view->assign('currentFile', $file);
 			try {
 				$documentContent = $parser->parseFile($file);

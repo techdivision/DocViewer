@@ -1,6 +1,9 @@
 
 a {
 	color: #00b5ff;
+	&:hover {
+		color: #3291ff;
+	}
 }
 
 h1 {
@@ -62,5 +65,5 @@ strong {
 blockquote {
 	padding: 0 0 0 15px;
 	margin: 0 0 20px;
-	border-left: 5px solid #eee;
+	border-left: 5px solid #bbb;
 }

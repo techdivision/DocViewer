@@ -16,6 +16,15 @@ class Parser {
 	protected static $resourceSuffix = '__docviwer';
 
 	/**
+	 * @var string
+	 */
+	protected $baseUri;
+
+	public function __construct($baseUri) {
+		$this->baseUri = $baseUri;
+	}
+
+	/**
 	 * @param Node $node
 	 * @return bool
 	 */
@@ -59,11 +68,11 @@ class Parser {
 	 * @param string $path
 	 * @return string
 	 */
-	public static function buildResourceUrl($node, $path = null) {
+	public static function buildResourceUrl($node, $path = null, $baseUri = '') {
 		if(!$path) {
 			$path = $node->getPath();
 		}
-		return 'techdivision-docviewer/' . $node->getPackageType() . "/" . $node->getPackageKey() . "/" . self::urlEncodeFilePath($path);
+		return $baseUri . 'techdivision-docviewer/' . $node->getPackageType() . "/" . $node->getPackageKey() . "/" . self::urlEncodeFilePath($path);
 	}
 
 	/**
@@ -77,7 +86,9 @@ class Parser {
 			'/src\s*=\s*\"(.+?)\"/',
 			function ($matches) use ($node) {
 				$src = $matches[1];
-				$src = self::buildResourceUrl($node, $src);
+				if(strpos($src, 'http') !== 0) {
+					$src = self::buildResourceUrl($node, $src, $this->baseUri);
+				}
 				return 'src="' . $src . '"';
 			},
 			$dom);

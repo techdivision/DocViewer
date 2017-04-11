@@ -19,6 +19,6 @@ class ResourceUrlViewHelper extends AbstractViewHelper
 	 */
     public function render($packageType, $packageKey, $filePath)
     {
-        return Parser::buildResourceUrl(new Node($packageType, $packageKey, $filePath));
+        return Parser::buildResourceUrl(new Node($packageType, $packageKey, $filePath), null, $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
     }
 }

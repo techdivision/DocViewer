@@ -4,6 +4,8 @@ namespace TechDivision\DocViewer\File;
 /*
  * This file is part of the TechDivision.DocViewer package.
  */
+use TechDivision\DocViewer\Exceptions\FileNotInsideDocumentationException;
+use TechDivision\DocViewer\Util;
 use TYPO3\Flow\Annotations as Flow;
 
 class Node {
@@ -71,6 +73,13 @@ class Node {
 		$this->name = basename($path);
 		$this->isDir = is_dir($path);
 		$this->absolutePath = realpath($path);
+
+		if(!$this->absolutePath) {
+			return null;
+		}
+		if(strpos($this->absolutePath, Util::getDocumentPath($packageType, $packageKey)) === false) {
+			throw new FileNotInsideDocumentationException("You are not allowed to acces files outside the documentation folder");
+		}
 
 		if(!$this->isDir) {
 			$this->info = pathinfo($path);

@@ -4,11 +4,15 @@ TYPO3:
       management:
         submodules:
           techDivisionDocViewer:
-            label: 'DocViewer'
-            controller: 'TechDivision\DocViewer\Controller\ModuleController'
-            description: 'View the docs of installed packages'
+            label: 'TechDivision.DocViewer:Main:module.label'
+            controller: '\TechDivision\DocViewer\Controller\ModuleController'
+            description: 'TechDivision.DocViewer:Main:module.description'
             icon: 'icon-book'
-            privilegeTarget: 'TechDivision.DocViewer:BackendModule'
+            privilegeTarget: 'TechDivision.DocViewer:Module'
+    userInterface:
+      translation:
+        autoInclude:
+          'TechDivision.DocViewer': ['Main']
   Flow:
     mvc:
       routes:
@@ -20,7 +24,7 @@ TechDivision:
   DocViewer:
     packages:
       # defines which types of packages are visible in which order
-      visibleTypes: [ 'Sites', 'Application', 'Framework' ]
+      visibleTypes: [ 'Sites', 'Application' ]
       hide:
         - TYPO3.TypoScript
         - TYPO3.Imagine
@@ -31,7 +35,7 @@ TechDivision:
         - TYPO3.Fluid
         - TYPO3.Eel
         - TYPO3.Flow
-        # - TechDivision.Neos.DocViewer
+       # - TechDivision.DocViewer
     # Files are searched for as entry file
     entryFiles: [ 'Readme', 'index', 'Index' ]
     parser:

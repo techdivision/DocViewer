@@ -27,9 +27,9 @@ class Tree {
 	 */
 	protected $parser;
 
-	public function __construct($packageType, $packageKey)
+	public function __construct($packageType, $packageKey, $baseUri)
 	{
-		$this->parser = new Parser();
+		$this->parser = new Parser($baseUri);
 		$this->rootNode = $this->buildFsNode($packageType, $packageKey);
 	}
 

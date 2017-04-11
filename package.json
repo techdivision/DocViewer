@@ -1,5 +1,6 @@
 {
-  "name": "docviewer",
+  "name": "techdivision/docviewer",
+  "type": "typo3-flow-package",
   "description": "docviewer",
   "version": "0.1.0",
   "author": "Matthias Witte <m.witte@techdivision.com>",

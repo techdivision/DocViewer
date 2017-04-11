@@ -1,7 +1,18 @@
 .neos.neos-module.neos-module-management-techDivisionDocViewer {
-    @import "Elements";
+
+
+    .content-section {
+        a {
+            color: #00b5ff;
+            &:hover {
+                color: #FFFFFF;
+            }
+        }
+    }
 
     .show {
+        @import "Elements";
+
         position: relative;
         .show-tree {
             position: absolute;
