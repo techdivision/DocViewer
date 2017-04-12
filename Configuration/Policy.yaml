@@ -6,7 +6,7 @@ privilegeTargets:
       matcher: 'method(TechDivision\DocViewer\Controller\ResourceController->.*Action())'
 
 roles:
-  'TYPO3.Flow:Everybody':
+  'TYPO3.Neos:Editor':
     privileges:
       -
         privilegeTarget: 'TechDivision.DocViewer:Module'

@@ -8,7 +8,6 @@ use TechDivision\DocViewer\Exceptions\PackageNotAccessableException;
 use TechDivision\DocViewer\Exceptions\ParsingNotAllowedException;
 use TechDivision\DocViewer\File\Parser;
 use TechDivision\DocViewer\File\Tree;
-use TechDivision\DocViewer\Util;
 
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Neos\Controller\Module\AbstractModuleController;

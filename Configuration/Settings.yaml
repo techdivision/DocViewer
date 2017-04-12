@@ -18,6 +18,15 @@ TYPO3:
       routes:
         'TechDivision.DocViewer':
           position: 'before TYPO3.Neos'
+    security:
+      authentication:
+        providers:
+          Typo3BackendProvider:
+            requestPatterns:
+              'TechDivision.DocViewer:controllers':
+                pattern: 'ControllerObjectName'
+                patternOptions:
+                  controllerObjectNamePattern: 'TechDivision\DocViewer\Controller\.*'
 
 
 TechDivision:

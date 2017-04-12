@@ -21,7 +21,6 @@ ignores the Policy.yaml.
 
 ## TBD
 
-- secure the resource provider by security framework
 - configurable package which gets rendered by default
 - configurable optional sub-directory inside the Documentation directory for rendering 
 to enable the possibility for a developer documentation and an user manual

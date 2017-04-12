@@ -9,7 +9,6 @@ use TechDivision\DocViewer\Exceptions\PackageNotAccessableException;
 use TechDivision\DocViewer\File\Parser;
 use TechDivision\DocViewer\Util;
 use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Security\Authorization\PrivilegeManagerInterface;
 
 /**
  * Rudimentary service for resources
@@ -32,7 +31,6 @@ class ResourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	 * @return mixed
 	 */
 	public function rawAction($packageType, $packageKey, $filePath) {
-		// @TODO fix for working Policy.yaml
 
 		if (!$this->accessManager->isPackageAccessable($packageKey)) {
 			throw new PackageNotAccessableException("You are not allowed to access the package " . $packageKey);

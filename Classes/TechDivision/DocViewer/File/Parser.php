@@ -107,7 +107,7 @@ class Parser {
 				$href = $matches[1];
 				if(strpos($href, 'http') !== 0) {
 					$href = trim($href, "./");
-					$href = 'neos/management/techDivisionDocViewer/show?moduleArguments%5BpackageKey%5D=' . $node->getPackageKey() . '&moduleArguments%5BpackageType%5D=' . $node->getPackageType() . '&moduleArguments%5BfilePath%5D=' . $href;
+					$href = 'show?moduleArguments%5BpackageKey%5D=' . $node->getPackageKey() . '&moduleArguments%5BpackageType%5D=' . $node->getPackageType() . '&moduleArguments%5BfilePath%5D=' . $href;
 				}
 				return 'href="' . $href . '"';
 			},
