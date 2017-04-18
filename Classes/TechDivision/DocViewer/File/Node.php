@@ -16,15 +16,11 @@ class Node {
 	 */
 	protected $name;
 
-	/**
-	 * @var string
-	 */
-	protected $packageType;
 
 	/**
-	 * @var string
+	 * @var \TYPO3\Flow\Package\PackageInterface $package
 	 */
-	protected $packageKey;
+	protected $package;
 
 	/**
 	 * @var boolean
@@ -63,13 +59,13 @@ class Node {
 
 	/**
 	 * Node constructor.
+	 * @param \TYPO3\Flow\Package\PackageInterface $package
 	 * @param $path
 	 */
-	public function __construct($packageType, $packageKey, $path)
+	public function __construct(\TYPO3\Flow\Package\PackageInterface $package, $path)
 	{
-		$this->packageType = $packageType;
-		$this->packageKey = $packageKey;
-		$this->path = $path;
+		$this->package = $package;
+		$this->path = trim(str_replace(Util::getDocumentPath($package), '', $path), "/");
 		$this->name = basename($path);
 		$this->isDir = is_dir($path);
 		$this->absolutePath = realpath($path);
@@ -77,7 +73,7 @@ class Node {
 		if(!$this->absolutePath) {
 			return null;
 		}
-		if(strpos($this->absolutePath, Util::getDocumentPath($packageType, $packageKey)) === false) {
+		if(strpos($this->absolutePath, Util::getDocumentPath($package)) === false) {
 			throw new FileNotInsideDocumentationException("You are not allowed to acces files outside the documentation folder");
 		}
 
@@ -108,14 +104,6 @@ class Node {
 	public function getPath()
 	{
 		return $this->path;
-	}
-
-	/**
-	 * @param string $path
-	 */
-	public function setPath($path)
-	{
-		$this->path = $path;
 	}
 
 	/**
@@ -185,33 +173,9 @@ class Node {
 	/**
 	 * @return string
 	 */
-	public function getPackageType()
-	{
-		return $this->packageType;
-	}
-
-	/**
-	 * @param string $packageType
-	 */
-	public function setPackageType($packageType)
-	{
-		$this->packageType = $packageType;
-	}
-
-	/**
-	 * @return string
-	 */
 	public function getPackageKey()
 	{
-		return $this->packageKey;
-	}
-
-	/**
-	 * @param string $packageKey
-	 */
-	public function setPackageKey($packageKey)
-	{
-		$this->packageKey = $packageKey;
+		return $this->package->getPackageKey();
 	}
 
 }

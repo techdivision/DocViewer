@@ -1,0 +1,48 @@
+// styling for the show action
+.show {
+	position: relative;
+
+	.show-tree {
+		position: absolute;
+		width: 30px;
+		transition: width 0.2s;
+		overflow: hidden;
+		min-height: 100%;
+		background-color: #444444;
+		border-bottom: 1px solid #3f3f3f;
+		border-right: 1px solid #3f3f3f;
+		&:hover {
+			width: 50%;
+			transition: width 0.2s;
+			.headline,.content {
+				display: block;
+			}
+		}
+		.opener-wrapper {
+			margin: 6px;
+		}
+		.opener {
+			font-size: 20px;
+
+		}
+		.headline {
+			display: none;
+			font-size: 20px;
+
+		}
+		.content {
+			display: none;
+			margin-left: 30px;
+		}
+	}
+
+	.show-content {
+		margin-left: 30px;
+		padding: 10px;
+		background-color: #FFFFFF;
+		color: #000000;
+
+		@import "Elements";
+	}
+
+}

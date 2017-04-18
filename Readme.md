@@ -13,15 +13,17 @@ Neos.Editors. With this module are you able to provide them a manuel for your pr
 At this point there is no stable php solution rendering RST especially the Neos docs. 
 To avoid complex dependencies this project supports only Markdown yet.
 
-## Known issue
+## Features
 
-Currently the resources controller which provides files of the Documentation folder 
-ignores the Policy.yaml. 
+- List installed packages with documentation
+- Rendering markdown with common features
+- Configurable blacklist to hide packages
+- Configurable default packages
 
+![TechDivision Logo](Documentation/assets/Features.gif)
 
 ## TBD
 
-- configurable package which gets rendered by default
 - configurable optional sub-directory inside the Documentation directory for rendering 
 to enable the possibility for a developer documentation and an user manual
 - branched version for LTS and current Neos version

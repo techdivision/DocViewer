@@ -10,14 +10,19 @@ class Util {
 
 
 	/**
+	 * Directory of the documentation
+	 * @var string
+	 */
+	protected static $docDir = 'Documentation';
+
+	/**
 	 * Get the documentation path
 	 *
-	 * @param string $packageType
-	 * @param string $packageKey
+	 * @param \TYPO3\Flow\Package\PackageInterface $package
 	 * @return string
 	 */
-	public static function getDocumentPath($packageType, $packageKey) {
-		$path = FLOW_PATH_PACKAGES . $packageType . DIRECTORY_SEPARATOR . $packageKey . '/Documentation';
+	public static function getDocumentPath($package) {
+		$path = $package->getPackagePath() . self::$docDir;
 		if(!file_exists($path)) {
 			return null;
 		}

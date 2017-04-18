@@ -8,6 +8,9 @@
 			<trans-unit id="module.description" xml:space="preserve">
 				<source>This module allows to read the documentation of the installed packages by configuration.</source>
 			</trans-unit>
+			<trans-unit id="action.list" xml:space="preserve">
+				<source>Packagelist</source>
+			</trans-unit>
 			<trans-unit id="infotext" xml:space="preserve">
 				<source>This module renders the documentation of all installed packages which are visible by configuration.</source>
 			</trans-unit>

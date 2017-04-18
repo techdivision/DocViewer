@@ -25,22 +25,28 @@ class ResourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	protected $accessManager;
 
 	/**
-	 * @param string $packageType
-	 * @param string $packageKey
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Package\PackageManagerInterface
+	 */
+	protected $packageManager;
+
+	/**
+	 * @param string $package
 	 * @param string $filePath
 	 * @return mixed
 	 */
-	public function rawAction($packageType, $packageKey, $filePath) {
+	public function rawAction($package, $filePath) {
 
-		if (!$this->accessManager->isPackageAccessable($packageKey)) {
-			throw new PackageNotAccessableException("You are not allowed to access the package " . $packageKey);
+		if (!$this->accessManager->isPackageAccessable($package)) {
+			throw new PackageNotAccessableException("You are not allowed to access the package " . $package);
 		}
 
-		$docDir = Util::getDocumentPath($packageType, $packageKey);
+		$docDir = Util::getDocumentPath($this->packageManager->getPackage($package));
 		$filePath = realpath($docDir . DIRECTORY_SEPARATOR . Parser::urlDecodeFilePath($filePath));
 
+		// take care given file path is sub path of the doc dir of the package
 		if(strpos($filePath, $docDir) === false) {
-			throw new FileNotInsideDocumentationException("You are not allowed to acces files outside the documentation folder");
+			throw new FileNotInsideDocumentationException("You are not allowed to access files outside the documentation folder");
 		}
 
 		$contentType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $filePath);

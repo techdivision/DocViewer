@@ -7,18 +7,23 @@ use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * Renders a resource url by given packageType, packageKey and filePath
+ * Renders a resource url by given packageKey and filePath
  */
 class ResourceUrlViewHelper extends AbstractViewHelper
 {
 	/**
-	 * @param $packageType
-	 * @param $packageKey
-	 * @param $filePath
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Package\PackageManagerInterface
+	 */
+	protected $packageManager;
+
+	/**
+	 * @param string $package
+	 * @param string $filePath
 	 * @return string
 	 */
-    public function render($packageType, $packageKey, $filePath)
+    public function render($package, $filePath)
     {
-        return Parser::buildResourceUrl(new Node($packageType, $packageKey, $filePath), null, $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
+        return Parser::buildResourceUrl(new Node($this->packageManager->getPackage($package), $filePath), null, $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
     }
 }

@@ -1,0 +1,29 @@
+ul {
+	li {
+		list-style-type: disc;
+	}
+	list-style-position: inside;
+	margin-left: 18px;
+}
+ol {
+	li {
+		list-style-type: decimal;
+	}
+	list-style-position: inside;
+	margin-left: 18px;
+}
+ul ul, ol ul {
+	li {
+		list-style-type: circle;
+	}
+	list-style-position: inside;
+	margin-left: 18px;
+}
+ol ol, ul ol {
+
+	li {
+		list-style-type: lower-latin;
+	}
+	list-style-position: inside;
+	margin-left: 18px;
+}

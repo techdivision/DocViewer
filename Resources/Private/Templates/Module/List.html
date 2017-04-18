@@ -1,0 +1,28 @@
+<f:layout name="Default" />
+
+<f:section name="Content">
+
+    <div class="packages">
+
+        {f:translate(id: 'infotext')}
+
+        <f:for each="{packageGroups}" key="packageType" as="packageGroup">
+
+            <h3>{packageType}</h3>
+            <f:for each="{packageGroup}" key="packageKey" as="package">
+
+                <div class="neos-row-fluid packages_item">
+                    <div class="neos-span3 packages_item-content">
+                        <f:link.action action="show" arguments="{package: packageKey}">{packageKey}</f:link.action>
+                    </div>
+                    <div class="neos-span1 packages_item-content">
+                        {package.version}
+                    </div>
+                    <div class="neos-span8 packages_item-content">
+                        {package.description}
+                    </div>
+                </div>
+            </f:for>
+        </f:for>
+    </div>
+</f:section>

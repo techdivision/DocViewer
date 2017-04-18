@@ -1,0 +1,13 @@
+// styling for the packages overview
+.packages {
+	.packages_item {
+		padding: 10px 10px 0 10px;
+		margin-bottom: 10px;
+
+		background-color: $background-color-box;
+		.packages_item-content {
+			min-height: inherit;
+			margin-bottom: 10px;
+		}
+	}
+}

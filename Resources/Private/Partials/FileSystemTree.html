@@ -23,7 +23,7 @@
         <f:else>
             <f:if condition="{node.isParseable}">
                 <f:then>
-                    <f:link.action action="show" arguments="{packageKey: node.packageKey, packageType: node.packageType, filePath: node.path}" title="{node.path}">
+                    <f:link.action action="show" arguments="{package: node.packageKey, filePath: node.path}" title="{node.path}">
                         <f:if condition="{node.active}">
                             <f:then>
                                 <b>{node.name}</b>
@@ -35,7 +35,7 @@
                     </f:link.action>
                 </f:then>
                 <f:else>
-                    <a href="{td:resourceUrl(packageType: node.packageType, packageKey: node.packageKey, filePath: node.path)}">
+                    <a href="{td:resourceUrl(package: node.packageKey, filePath: node.path)}">
                         {node.name}
                     </a>
                 </f:else>

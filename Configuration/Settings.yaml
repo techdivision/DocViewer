@@ -6,6 +6,7 @@ TYPO3:
           techDivisionDocViewer:
             label: 'TechDivision.DocViewer:Main:module.label'
             controller: '\TechDivision\DocViewer\Controller\ModuleController'
+            action: 'list'
             description: 'TechDivision.DocViewer:Main:module.description'
             icon: 'icon-book'
             privilegeTarget: 'TechDivision.DocViewer:Module'
@@ -32,8 +33,12 @@ TYPO3:
 TechDivision:
   DocViewer:
     packages:
+      # Try to show this package by default
+      #entryPackage: 'TechDivision.DocViewer'
       # defines which types of packages are visible in which order
       visibleTypes: [ 'Sites', 'Application' ]
+
+      # All listed packages gets' hided and are not accessable
       hide:
         - TYPO3.TypoScript
         - TYPO3.Imagine
@@ -45,8 +50,10 @@ TechDivision:
         - TYPO3.Eel
         - TYPO3.Flow
        # - TechDivision.DocViewer
+
     # Files are searched for as entry file
     entryFiles: [ 'Readme', 'index', 'Index' ]
+
     parser:
       markdown:
         allowedFileExtensions: [ 'md', 'rst', 'txt' ]

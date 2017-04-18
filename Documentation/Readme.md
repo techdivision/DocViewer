@@ -6,9 +6,11 @@ This packages provides a docviewer module for the neos backend.
 
 Some examples:
 
-[Internal link](./Ref.md)
+[Internal link](./Reference.md)
 
-[Internal link subdir](subdir/Ref.md)
+[Internal link subdir](subdir/Reference.md)
+
+[Internal link subSubdir](subdir/subSubDir/Reference.md)
 
 [External link](https://google.com/)
 
@@ -44,3 +46,5 @@ some ```inline``` code
 ### Headline 3
 
 ![Dummy image](https://dummyimage.com/300)
+
+![TechDivision Logo](assets/Features.gif)

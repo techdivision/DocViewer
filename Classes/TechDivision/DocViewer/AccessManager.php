@@ -19,12 +19,19 @@ class AccessManager extends AbstractModuleController
 	protected $packagesConfiguration;
 
 	/**
+	 * @Flow\Inject
+	 * @var \TYPO3\Flow\Package\PackageManagerInterface
+	 */
+	protected $packageManager;
+
+	/**
 	 * Determines if given package key should be accessable
 	 *
 	 * @param string $packageKey
 	 * @return bool
 	 */
 	public function isPackageAccessable($packageKey) {
-		return !in_array($packageKey, $this->packagesConfiguration['hide']);
+		return $this->packageManager->isPackageActive($packageKey) && !in_array($packageKey, $this->packagesConfiguration['hide']);
 	}
+
 }

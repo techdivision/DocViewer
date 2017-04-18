@@ -1,7 +1,7 @@
 
 -
   name:  'Fileprovider'
-  uriPattern: 'techdivision-docviewer/{packageType}/{packageKey}/{filePath}'
+  uriPattern: 'techdivision-docviewer/{package}/{filePath}'
   defaults:
     '@package':    'TechDivision.DocViewer'
     '@controller': 'Resource'

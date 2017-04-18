@@ -27,10 +27,15 @@ class Tree {
 	 */
 	protected $parser;
 
-	public function __construct($packageType, $packageKey, $baseUri)
+	/**
+	 * Tree constructor.
+	 * @param \TYPO3\Flow\Package\PackageInterface $package
+	 * @param $baseUri
+	 */
+	public function __construct(\TYPO3\Flow\Package\PackageInterface $package, $baseUri)
 	{
 		$this->parser = new Parser($baseUri);
-		$this->rootNode = $this->buildFsNode($packageType, $packageKey);
+		$this->rootNode = $this->buildFsNode($package);
 	}
 
 	/**
@@ -95,23 +100,21 @@ class Tree {
 
 	/**
 	 * Builds up given folder path as composite
-	 * @param string $packageType
-	 * @param string $packageKey
+	 * @param \TYPO3\Flow\Package\PackageInterface $package
 	 * @param string $path
 	 * @return null|Node
 	 */
-	protected function buildFsNode($packageType, $packageKey, $path = null) {
+	protected function buildFsNode(\TYPO3\Flow\Package\PackageInterface $package, $path = null) {
 
 		if(!$path) {
-			$path = Util::getDocumentPath($packageType, $packageKey);
+			$path = Util::getDocumentPath($package);
 		}
 
 		if(!file_exists($path)) {
 			return null;
 		}
 
-		$node = new Node($packageType, $packageKey, $path);
-		$node->setPath(trim(str_replace(Util::getDocumentPath($packageType, $packageKey), '', $path), "/"));
+		$node = new Node($package, $path);
 		if($node->isIsDir()) {
 
 			$content = array();
@@ -121,7 +124,7 @@ class Tree {
 				if($element == '.' || $element == '..') {
 					continue;
 				}
-				$content[] = $this->buildFsNode($packageType, $packageKey, $path . DIRECTORY_SEPARATOR . $element);
+				$content[] = $this->buildFsNode($package, $path . DIRECTORY_SEPARATOR . $element);
 			}
 			$node->setContent($content);
 		} else {

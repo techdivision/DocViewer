@@ -1,8 +1,9 @@
+// Styling for the elements which get rendered by renderer
 
 a {
-	color: #00b5ff;
+	color: $link-color;
 	&:hover {
-		color: #3291ff;
+		color: darken($link-color, 30%);
 	}
 }
 
@@ -14,36 +15,6 @@ h2 {
 }
 h3 {
 	font-size: 16px;
-}
-
-ul {
-	li {
-		list-style-type: disc;
-	}
-	list-style-position: inside;
-	margin-left: 18px;
-}
-ol {
-	li {
-		list-style-type: decimal;
-	}
-	list-style-position: inside;
-	margin-left: 18px;
-}
-ul ul, ol ul {
-	li {
-		list-style-type: circle;
-	}
-	list-style-position: inside;
-	margin-left: 18px;
-}
-ol ol, ul ol {
-
-	li {
-		list-style-type: lower-latin;
-	}
-	list-style-position: inside;
-	margin-left: 18px;
 }
 
 p {

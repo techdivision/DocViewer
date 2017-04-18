@@ -3,8 +3,24 @@
 
 <f:flashMessages class="flashmessages" />
 
-<h1><f:render section="Title" /></h1>
+<div class="techDivision-docviewer-module-wrapper">
 
-<div class="content-section">
-    <f:render section="Content" />
+    <h1>{f:translate(id: 'module.label')}</h1>
+
+    <ul class="moduleMenu">
+        <li class="moduleMenu-item">
+            <f:link.action action="list" class="moduleMenu-link"><i class="icon-list"></i> {f:translate(id: 'action.list')}</f:link.action>
+        </li>
+        <li class="moduleMenu-item">
+            <a href="https://github.com/techdivision/DocViewer" class="moduleMenu-link"><i class="icon-github"></i> Github</a>
+        </li>
+    </ul>
+
+    <div class="content-section">
+        <f:render section="Content" />
+    </div>
+
+    <div class="footer">
+        DocViewer by <a href="https://www.techdivision.com/">TechDivision</a>. For support open an issue on <a href="https://github.com/techdivision/DocViewer"><i class="icon-github"></i> Github</a>
+    </div>
 </div>

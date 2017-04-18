@@ -9,6 +9,7 @@ use TechDivision\DocViewer\Exceptions\ParsingNotAllowedException;
 use TechDivision\DocViewer\File\Parser;
 use TechDivision\DocViewer\File\Tree;
 
+use TechDivision\DocViewer\Util;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Neos\Controller\Module\AbstractModuleController;
 
@@ -38,11 +39,23 @@ class ModuleController extends AbstractModuleController
 	 */
 	protected $accessManager;
 
-    /**
-     * @return void
-     */
-    public function indexAction()
-    {
+	/**
+	 * Routes to list or show action depending on configuration
+	 * @return void
+	 */
+	public function indexAction() {
+		if(isset($this->packagesConfiguration['entryPackage']) && $this->accessManager->isPackageAccessable($this->packagesConfiguration['entryPackage'])) {
+			$this->forward('show', null, null, array('package' => $this->packagesConfiguration['entryPackage']));
+		} else {
+			$this->forward('list');
+		}
+	}
+
+	/**
+	 * Lists packages with documentation depending on configuration
+	 * @return void
+	 */
+	public function listAction() {
 
 		$packageGroups = array();
 
@@ -63,7 +76,7 @@ class ModuleController extends AbstractModuleController
 				continue;
 			}
 
-			$tree = new Tree($packageGroup, $package->getPackageKey(), $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
+			$tree = new Tree($package, $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
 
 			if(!$tree->isDirectoryWithContent()) {
 				continue;
@@ -74,37 +87,31 @@ class ModuleController extends AbstractModuleController
 				'version' => $package->getInstalledVersion(),
 				'name' => $package->getComposerManifest('name'),
 				'type' => $package->getComposerManifest('type'),
-				'description' => $package->getPackageMetaData()->getDescription(),
-				'metaData' => $package->getPackageMetaData(),
-				'isActive' => $this->packageManager->isPackageActive($package->getPackageKey()),
-				'isFrozen' => $this->packageManager->isPackageFrozen($package->getPackageKey()),
-				'isProtected' => $package->isProtected(),
-				'hasDoc' => $tree->isDirectoryWithContent()
+				'description' => $package->getPackageMetaData()->getDescription()
 			);
 
 		}
 
 		$this->view->assign('packageGroups', $packageGroups);
-
 	}
 
 	/**
-	 * @param string $packageKey
-	 * @param string $packageType
+	 * Shows documentation of given package
+	 * @param string $package
 	 * @param string $filePath
+	 * @throws PackageNotAccessableException
+	 * @return void
 	 */
-	public function showAction($packageKey, $packageType, $filePath = null) {
-
+	public function showAction($package, $filePath = null) {
 		$baseUri = $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri();
 
-		if (!$this->accessManager->isPackageAccessable($packageKey)) {
-			throw new PackageNotAccessableException("You are not allowed to access the package " . $packageKey);
+		if (!$this->accessManager->isPackageAccessable($package)) {
+			throw new PackageNotAccessableException("You are not allowed to access the package " . $package);
 		}
+		$package = $this->packageManager->getPackage($package);
+		$this->view->assign('packageKey', $package->getPackageKey());
 
-		$this->view->assign('packageKey', $packageKey);
-		$this->view->assign('packageType', $packageType);
-
-		$tree = new Tree($packageType, $packageKey, $baseUri);
+		$tree = new Tree($package, $baseUri);
 
 		if(!$tree->isDirectoryWithContent()) {
 			$this->addFlashMessage('No documention could be found');

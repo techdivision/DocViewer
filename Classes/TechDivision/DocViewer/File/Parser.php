@@ -70,9 +70,17 @@ class Parser {
 	 */
 	public static function buildResourceUrl($node, $path = null, $baseUri = '') {
 		if(!$path) {
+			// if no path given the node is the resource url itself
 			$path = $node->getPath();
+		} else {
+			// build paths for relative resources
+			$sourcePathElements = explode("/", $node->getPath());
+			array_pop($sourcePathElements);
+			array_push($sourcePathElements, $path);
+			$path = join("/", $sourcePathElements);
 		}
-		return $baseUri . 'techdivision-docviewer/' . $node->getPackageType() . "/" . $node->getPackageKey() . "/" . self::urlEncodeFilePath($path);
+
+		return $baseUri . 'techdivision-docviewer/' . $node->getPackageKey() . "/" . self::urlEncodeFilePath($path);
 	}
 
 	/**
@@ -107,7 +115,7 @@ class Parser {
 				$href = $matches[1];
 				if(strpos($href, 'http') !== 0) {
 					$href = trim($href, "./");
-					$href = 'show?moduleArguments%5BpackageKey%5D=' . $node->getPackageKey() . '&moduleArguments%5BpackageType%5D=' . $node->getPackageType() . '&moduleArguments%5BfilePath%5D=' . $href;
+					$href = 'show?moduleArguments%5Bpackage%5D=' . $node->getPackageKey() . '&moduleArguments%5BfilePath%5D=' . $href;
 				}
 				return 'href="' . $href . '"';
 			},
