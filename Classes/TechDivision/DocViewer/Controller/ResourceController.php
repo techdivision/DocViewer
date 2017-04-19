@@ -5,13 +5,15 @@ namespace TechDivision\DocViewer\Controller;
  * This file is part of the TechDivision.DocViewer package.
  */
 use TechDivision\DocViewer\Exceptions\FileNotInsideDocumentationException;
-use TechDivision\DocViewer\Exceptions\PackageNotAccessableException;
+use TechDivision\DocViewer\Exceptions\PackageNotAccessibleException;
 use TechDivision\DocViewer\File\Parser;
 use TechDivision\DocViewer\Util;
 use TYPO3\Flow\Annotations as Flow;
 
 /**
- * Rudimentary service for resources
+ * Rudimentary service for resources. Flow does not allow serving static files which are not in the resource folder.
+ * This controller serves only static files which are inside the documentation folder of the installed packages which
+ * are not hidden by configuration.
  *
  * @Flow\Scope("singleton")
  */
@@ -31,14 +33,17 @@ class ResourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 	protected $packageManager;
 
 	/**
+	 * Serves static files
+	 *
 	 * @param string $package
 	 * @param string $filePath
 	 * @return mixed
 	 */
 	public function rawAction($package, $filePath) {
 
+		// check if given package is valid
 		if (!$this->accessManager->isPackageAccessable($package)) {
-			throw new PackageNotAccessableException("You are not allowed to access the package " . $package);
+			throw new PackageNotAccessibleException("You are not allowed to access the package " . $package);
 		}
 
 		$docDir = Util::getDocumentPath($this->packageManager->getPackage($package));

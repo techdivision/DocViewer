@@ -4,12 +4,10 @@ namespace TechDivision\DocViewer\Controller;
 /*
  * This file is part of the TechDivision.DocViewer package.
  */
-use TechDivision\DocViewer\Exceptions\PackageNotAccessableException;
+use TechDivision\DocViewer\Exceptions\PackageNotAccessibleException;
 use TechDivision\DocViewer\Exceptions\ParsingNotAllowedException;
 use TechDivision\DocViewer\File\Parser;
 use TechDivision\DocViewer\File\Tree;
-
-use TechDivision\DocViewer\Util;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Neos\Controller\Module\AbstractModuleController;
 
@@ -92,6 +90,7 @@ class ModuleController extends AbstractModuleController
 
 		}
 
+		$this->view->assign('projectVersion', $this->packageManager->getPackage('TechDivision.DocViewer')->getInstalledVersion());
 		$this->view->assign('packageGroups', $packageGroups);
 	}
 
@@ -99,14 +98,14 @@ class ModuleController extends AbstractModuleController
 	 * Shows documentation of given package
 	 * @param string $package
 	 * @param string $filePath
-	 * @throws PackageNotAccessableException
+	 * @throws PackageNotAccessibleException
 	 * @return void
 	 */
 	public function showAction($package, $filePath = null) {
 		$baseUri = $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri();
 
 		if (!$this->accessManager->isPackageAccessable($package)) {
-			throw new PackageNotAccessableException("You are not allowed to access the package " . $package);
+			throw new PackageNotAccessibleException("You are not allowed to access the package " . $package);
 		}
 		$package = $this->packageManager->getPackage($package);
 		$this->view->assign('packageKey', $package->getPackageKey());
@@ -134,5 +133,6 @@ class ModuleController extends AbstractModuleController
 				$this->addFlashMessage($e->getMessage());
 			}
 		}
+		$this->view->assign('projectVersion', $this->packageManager->getPackage('TechDivision.DocViewer')->getInstalledVersion());
 	}
 }

@@ -16,3 +16,8 @@ if(!process.env.DOCKER_CONTAINER_NAME) {
     gutil.log("Example: " + gutil.colors.green("DOCKER_CONTAINER_NAME=my_container_name gulp deploy:docker"));
     process.exit()
 }
+
+gulp.task('release', ['cms:build'], function() {
+    return gulp.src('dist/Resources/Public/Styles/*', { dot: true, followSymlinks: false })
+        .pipe(gulp.dest('./Resources/Public/Styles/'));
+});

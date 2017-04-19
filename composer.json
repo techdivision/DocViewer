@@ -1,11 +1,19 @@
 {
     "description": "This neos package enables you to read the docs of the installed packages",
+    "name": "techdivision/docviewer",
+    "keywords": ["neos", "backend", "module", "documentation"],
     "type": "neos-package",
+    "authors": [
+        {
+            "name": "Matthias Witte",
+            "email": "m.witte@techdivision.com"
+        }
+    ],
+    "license": "GPL-3.0+",
     "require": {
         "neos/neos": "2.3.*",
         "erusev/parsedown": "*"
     },
-    "name": "techdivision/docviewer",
     "autoload": {
         "psr-0": {
             "TechDivision\\DocViewer": "Classes/"
@@ -15,6 +23,5 @@
         "neos": {
             "package-key": "TechDivision.DocViewer"
         }
-    },
-    "license": "GPL-3.0+"
+    }
 }

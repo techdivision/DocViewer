@@ -2,8 +2,8 @@
 namespace TechDivision\DocViewer\Exceptions;
 
 /**
- * Parsing is not allowed exception
+ * Package is not accessible exception
  */
-class PackageNotAccessableException extends \TYPO3\Flow\Exception
+class PackageNotAccessibleException extends \TYPO3\Flow\Exception
 {
 }
