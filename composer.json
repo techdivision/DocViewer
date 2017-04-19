@@ -15,5 +15,6 @@
         "neos": {
             "package-key": "TechDivision.DocViewer"
         }
-    }
+    },
+    "license": "GPL-3.0+"
 }
