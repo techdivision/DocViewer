@@ -26,4 +26,3 @@ To avoid complex dependencies this project supports only Markdown yet.
 
 - configurable optional sub-directory inside the Documentation directory for rendering 
 to enable the possibility for a developer documentation and an user manual
-- branched version for LTS and current Neos version
