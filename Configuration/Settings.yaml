@@ -40,15 +40,11 @@ TechDivision:
 
       # All listed packages gets' hided and are not accessable
       hide:
-        - TYPO3.TypoScript
-        - TYPO3.Imagine
-        - TYPO3.Media
-        - TYPO3.Form
-        - TYPO3.Twitter.Bootstrap
-        - TYPO3.Neos
-        - TYPO3.Fluid
-        - TYPO3.Eel
-        - TYPO3.Flow
+        - Neos.Imagine
+        - Neos.Media
+        - Neos.Form
+        - Neos.Twitter.Bootstrap
+        - Neos.Neos
        # - TechDivision.DocViewer
 
     # Files are searched for as entry file
