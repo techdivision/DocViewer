@@ -8,7 +8,7 @@ use TechDivision\DocViewer\Exceptions\FileNotInsideDocumentationException;
 use TechDivision\DocViewer\Exceptions\PackageNotAccessibleException;
 use TechDivision\DocViewer\File\Parser;
 use TechDivision\DocViewer\Util;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 /**
  * Rudimentary service for resources. Flow does not allow serving static files which are not in the resource folder.
@@ -17,7 +17,7 @@ use TYPO3\Flow\Annotations as Flow;
  *
  * @Flow\Scope("singleton")
  */
-class ResourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
+class ResourceController extends \Neos\Flow\Mvc\Controller\ActionController
 {
 
 	/**
@@ -28,7 +28,7 @@ class ResourceController extends \TYPO3\Flow\Mvc\Controller\ActionController
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Package\PackageManagerInterface
+	 * @var \Neos\Flow\Package\PackageManagerInterface
 	 */
 	protected $packageManager;
 

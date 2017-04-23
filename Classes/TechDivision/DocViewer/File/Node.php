@@ -6,7 +6,7 @@ namespace TechDivision\DocViewer\File;
  */
 use TechDivision\DocViewer\Exceptions\FileNotInsideDocumentationException;
 use TechDivision\DocViewer\Util;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 class Node {
 
@@ -18,7 +18,7 @@ class Node {
 
 
 	/**
-	 * @var \TYPO3\Flow\Package\PackageInterface $package
+	 * @var \Neos\Flow\Package\PackageInterface $package
 	 */
 	protected $package;
 
@@ -59,10 +59,10 @@ class Node {
 
 	/**
 	 * Node constructor.
-	 * @param \TYPO3\Flow\Package\PackageInterface $package
+	 * @param \Neos\Flow\Package\PackageInterface $package
 	 * @param $path
 	 */
-	public function __construct(\TYPO3\Flow\Package\PackageInterface $package, $path)
+	public function __construct(\Neos\Flow\Package\PackageInterface $package, $path)
 	{
 		$this->package = $package;
 		$this->path = trim(str_replace(Util::getDocumentPath($package), '', $path), "/");

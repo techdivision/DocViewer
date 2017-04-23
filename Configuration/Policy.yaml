@@ -1,12 +1,12 @@
 privilegeTargets:
-  'TYPO3\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
+  'Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege':
     'TechDivision.DocViewer:Module':
       matcher: 'method(TechDivision\DocViewer\Controller\ModuleController->.*Action())'
     'TechDivision.DocViewer:Module:Resource':
       matcher: 'method(TechDivision\DocViewer\Controller\ResourceController->.*Action())'
 
 roles:
-  'TYPO3.Neos:Editor':
+  'Neos.Neos:Editor':
     privileges:
       -
         privilegeTarget: 'TechDivision.DocViewer:Module'

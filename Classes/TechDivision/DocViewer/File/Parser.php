@@ -5,7 +5,7 @@ namespace TechDivision\DocViewer\File;
  * This file is part of the TechDivision.DocViewer package.
  */
 use TechDivision\DocViewer\Exceptions\ParsingNotAllowedException;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 class Parser {
 

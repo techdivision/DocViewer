@@ -4,7 +4,7 @@ namespace TechDivision\DocViewer;
 /*
  * This file is part of the TechDivision.DocViewer package.
  */
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 class Util {
 
@@ -18,7 +18,7 @@ class Util {
 	/**
 	 * Get the documentation path
 	 *
-	 * @param \TYPO3\Flow\Package\PackageInterface $package
+	 * @param \Neos\Flow\Package\PackageInterface $package
 	 * @return string
 	 */
 	public static function getDocumentPath($package) {

@@ -5,7 +5,7 @@ namespace TechDivision\DocViewer\File;
  * This file is part of the TechDivision.DocViewer package.
  */
 use TechDivision\DocViewer\Util;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Annotations as Flow;
 
 class Tree {
 
@@ -29,10 +29,10 @@ class Tree {
 
 	/**
 	 * Tree constructor.
-	 * @param \TYPO3\Flow\Package\PackageInterface $package
+	 * @param \Neos\Flow\Package\PackageInterface $package
 	 * @param $baseUri
 	 */
-	public function __construct(\TYPO3\Flow\Package\PackageInterface $package, $baseUri)
+	public function __construct(\Neos\Flow\Package\PackageInterface $package, $baseUri)
 	{
 		$this->parser = new Parser($baseUri);
 		$this->rootNode = $this->buildFsNode($package);
@@ -101,11 +101,11 @@ class Tree {
 
 	/**
 	 * Builds up given folder path as composite
-	 * @param \TYPO3\Flow\Package\PackageInterface $package
+	 * @param \Neos\Flow\Package\PackageInterface $package
 	 * @param string $path
 	 * @return null|Node
 	 */
-	protected function buildFsNode(\TYPO3\Flow\Package\PackageInterface $package, $path = null) {
+	protected function buildFsNode(\Neos\Flow\Package\PackageInterface $package, $path = null) {
 
 		if(!$path) {
 			$path = Util::getDocumentPath($package);

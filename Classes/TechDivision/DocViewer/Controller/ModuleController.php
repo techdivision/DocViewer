@@ -8,8 +8,8 @@ use TechDivision\DocViewer\Exceptions\PackageNotAccessibleException;
 use TechDivision\DocViewer\Exceptions\ParsingNotAllowedException;
 use TechDivision\DocViewer\File\Parser;
 use TechDivision\DocViewer\File\Tree;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Neos\Controller\Module\AbstractModuleController;
+use Neos\Flow\Annotations as Flow;
+use Neos\Neos\Controller\Module\AbstractModuleController;
 
 /**
  *
@@ -20,7 +20,7 @@ class ModuleController extends AbstractModuleController
 
 	/**
 	 * @Flow\Inject
-	 * @var \TYPO3\Flow\Package\PackageManagerInterface
+	 * @var \Neos\Flow\Package\PackageManagerInterface
 	 */
 	protected $packageManager;
 
@@ -85,7 +85,8 @@ class ModuleController extends AbstractModuleController
 				'version' => $package->getInstalledVersion(),
 				'name' => $package->getComposerManifest('name'),
 				'type' => $package->getComposerManifest('type'),
-				'description' => $package->getPackageMetaData()->getDescription()
+				//'description' => $package->getPackageMetaData()->getDescription()
+				'description' => $package->getComposerManifest('description')
 			);
 
 		}
