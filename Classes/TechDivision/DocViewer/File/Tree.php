@@ -34,7 +34,7 @@ class Tree {
 	 */
 	public function __construct(\Neos\Flow\Package\PackageInterface $package, $baseUri)
 	{
-		$this->parser = new Parser($baseUri);
+		$this->parser = new Parser($baseUri, null);
 		$this->rootNode = $this->buildFsNode($package);
 	}
 

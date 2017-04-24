@@ -47,10 +47,10 @@ class ResourceController extends \Neos\Flow\Mvc\Controller\ActionController
 		}
 
 		$docDir = Util::getDocumentPath($this->packageManager->getPackage($package));
-		$filePath = realpath($docDir . DIRECTORY_SEPARATOR . Parser::urlDecodeFilePath($filePath));
+		$filePath = realpath($docDir . DIRECTORY_SEPARATOR . Util::urlDecodeFilePath($filePath));
 
 		// take care given file path is sub path of the doc dir of the package
-		if(strpos($filePath, $docDir) === false) {
+		if(strpos($filePath, $docDir) < 0 || strpos($filePath, $docDir) === false) {
 			throw new FileNotInsideDocumentationException("You are not allowed to access files outside the documentation folder");
 		}
 

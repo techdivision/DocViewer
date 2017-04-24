@@ -125,7 +125,7 @@ class ModuleController extends AbstractModuleController
 		}
 
 		if($file) {
-			$parser = new Parser($baseUri);
+			$parser = new Parser($baseUri, $this->getControllerContext());
 			$this->view->assign('currentFile', $file);
 			try {
 				$documentContent = $parser->parseFile($file);

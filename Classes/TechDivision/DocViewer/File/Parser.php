@@ -6,22 +6,36 @@ namespace TechDivision\DocViewer\File;
  */
 use TechDivision\DocViewer\Exceptions\ParsingNotAllowedException;
 use Neos\Flow\Annotations as Flow;
+use TechDivision\DocViewer\Util;
+use Neos\Flow\Mvc\Controller\ControllerContext;
 
 class Parser {
-
-	/**
-	 * Suffix for all resources to avid webserver's file delivering
-	 * @var string
-	 */
-	protected static $resourceSuffix = '__docviwer';
 
 	/**
 	 * @var string
 	 */
 	protected $baseUri;
 
-	public function __construct($baseUri) {
+	/**
+	 * @var ControllerContext
+	 */
+	protected $controllerContext;
+
+	/**
+	 * Files which are allowed for parsing as markdown
+	 * @Flow\InjectConfiguration(path="parser.markdown.allowedFileExtensions")
+	 * @var array
+	 */
+	protected $markdownFileExtensions;
+
+	/**
+	 * Parser constructor.
+	 * @param string $baseUri
+	 * @param ControllerContext $controllerContext
+	 */
+	public function __construct($baseUri, $controllerContext) {
 		$this->baseUri = $baseUri;
+		$this->controllerContext = $controllerContext;
 	}
 
 	/**
@@ -39,51 +53,6 @@ class Parser {
 	}
 
 	/**
-	 * Files which are allowed for parsing as markdown
-	 * @Flow\InjectConfiguration(path="parser.markdown.allowedFileExtensions")
-	 * @var array
-	 */
-	protected $markdownFileExtensions;
-
-	/**
-	 * Encode a file path so ensure webserver configuration won't try to deliver a file itself
-	 * @param string $path
-	 * @return string
-	 */
-	public static function urlEncodeFilePath($path) {
-		return urlencode($path) . self::$resourceSuffix;
-	}
-
-	/**
-	 * Decode a file path to ensure webserver configuration won't try to deliver a file itself
-	 * @param string $path
-	 * @return mixed
-	 */
-	public static function urlDecodeFilePath($path) {
-		return preg_replace('/'. self::$resourceSuffix .'$/', '', urldecode($path));
-	}
-
-	/**
-	 * @param Node $node
-	 * @param string $path
-	 * @return string
-	 */
-	public static function buildResourceUrl($node, $path = null, $baseUri = '') {
-		if(!$path) {
-			// if no path given the node is the resource url itself
-			$path = $node->getPath();
-		} else {
-			// build paths for relative resources
-			$sourcePathElements = explode("/", $node->getPath());
-			array_pop($sourcePathElements);
-			array_push($sourcePathElements, $path);
-			$path = join("/", $sourcePathElements);
-		}
-
-		return $baseUri . 'techdivision-docviewer/' . $node->getPackageKey() . "/" . self::urlEncodeFilePath($path);
-	}
-
-	/**
 	 * Replaces src value attributes in given dom string
 	 * @param string $dom
 	 * @param Node $node
@@ -95,7 +64,7 @@ class Parser {
 			function ($matches) use ($node) {
 				$src = $matches[1];
 				if(strpos($src, 'http') !== 0) {
-					$src = self::buildResourceUrl($node, $src, $this->baseUri);
+					$src = Util::buildResourceUrl($node, $src, $this->baseUri);
 				}
 				return 'src="' . $src . '"';
 			},
@@ -109,13 +78,15 @@ class Parser {
 	 * @return mixed
 	 */
 	protected function replaceHrefValues($dom, $node) {
+		$uriBuilder = $uriBuilder = $this->controllerContext->getUriBuilder();
 		return preg_replace_callback(
 			'/href\s*=\s*\"(.+?)\"/',
-			function ($matches) use ($node) {
+			function ($matches) use ($node, $uriBuilder) {
 				$href = $matches[1];
 				if(strpos($href, 'http') !== 0) {
 					$href = trim($href, "./");
-					$href = 'show?moduleArguments%5Bpackage%5D=' . $node->getPackageKey() . '&moduleArguments%5BfilePath%5D=' . $href;
+					$uriBuilder->reset();
+					$href = $uriBuilder->uriFor('show', array('package' => $node->getPackageKey(), 'filePath' => $href), null, null, null);
 				}
 				return 'href="' . $href . '"';
 			},

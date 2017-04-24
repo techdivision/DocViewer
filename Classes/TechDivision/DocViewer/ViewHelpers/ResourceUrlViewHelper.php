@@ -2,9 +2,9 @@
 namespace TechDivision\DocViewer\ViewHelpers;
 
 use TechDivision\DocViewer\File\Node;
-use TechDivision\DocViewer\File\Parser;
 use Neos\Flow\Annotations as Flow;
 use Neos\FluidAdaptor\Core\ViewHelper\AbstractViewHelper;
+use TechDivision\DocViewer\Util;
 
 /**
  * Renders a resource url by given packageKey and filePath
@@ -24,6 +24,6 @@ class ResourceUrlViewHelper extends AbstractViewHelper
 	 */
     public function render($package, $filePath)
     {
-        return Parser::buildResourceUrl(new Node($this->packageManager->getPackage($package), $filePath), null, $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
+        return Util::buildResourceUrl(new Node($this->packageManager->getPackage($package), $filePath), null, $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
     }
 }
