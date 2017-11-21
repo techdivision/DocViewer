@@ -1,5 +1,5 @@
 {
-  "name": "techdivision/docviewer",
+  "name": "techdivision-docviewer",
   "type": "neos-flow-package",
   "description": "docviewer",
   "version": "0.1.0",

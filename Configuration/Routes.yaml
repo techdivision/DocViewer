@@ -1,7 +1,7 @@
 
 -
   name:  'Fileprovider'
-  uriPattern: 'techdivision-docviewer/{package}/{filePath}'
+  uriPattern: 'neos/techdivision-docviewer/{package}/{filePath}'
   defaults:
     '@package':    'TechDivision.DocViewer'
     '@controller': 'Resource'
