@@ -36,7 +36,7 @@ TechDivision:
       # Try to show this package by default
       #entryPackage: 'TechDivision.DocViewer'
       # defines which types of packages are visible in which order
-      visibleTypes: [ 'Sites', 'Application' ]
+      visibleTypes: [ 'Sites', 'Application', 'Plugins' ]
 
       # All listed packages gets' hided and are not accessable
       hide:
