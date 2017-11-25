@@ -11,27 +11,30 @@ use Neos\Neos\Controller\Module\AbstractModuleController;
 class AccessManager extends AbstractModuleController
 {
 
-	/**
-	 * Files which are used as entry files
-	 * @Flow\InjectConfiguration("packages")
-	 * @var array
-	 */
-	protected $packagesConfiguration;
+    /**
+     * Files which are used as entry files
+     * @Flow\InjectConfiguration("packages")
+     * @var array
+     */
+    protected $packagesConfiguration;
 
-	/**
-	 * @Flow\Inject
-	 * @var \Neos\Flow\Package\PackageManagerInterface
-	 */
-	protected $packageManager;
+    /**
+     * @Flow\Inject
+     * @var \Neos\Flow\Package\PackageManagerInterface
+     */
+    protected $packageManager;
 
-	/**
-	 * Determines if given package key should be accessable
-	 *
-	 * @param string $packageKey
-	 * @return bool
-	 */
-	public function isPackageAccessable($packageKey) {
-		return $this->packageManager->isPackageActive($packageKey) && !in_array($packageKey, $this->packagesConfiguration['hide']);
-	}
+    /**
+     * Determines if given package key should be accessable
+     *
+     * @param string $packageKey
+     * @return bool
+     */
+    public function isPackageAccessable($packageKey) {
+        return $this->packageManager->isPackageActive($packageKey) &&
+        (!array_key_exists($packageKey, $this->packagesConfiguration['hide']) ||
+            !$this->packagesConfiguration['hide'][$packageKey]
+        );
+    }
 
 }

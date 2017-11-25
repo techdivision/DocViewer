@@ -40,12 +40,12 @@ TechDivision:
 
       # All listed packages gets' hided and are not accessable
       hide:
-        - Neos.Imagine
-        - Neos.Media
-        - Neos.Form
-        - Neos.Twitter.Bootstrap
-        - Neos.Neos
-       # - TechDivision.DocViewer
+        Neos.Imagine: true
+        Neos.Media: true
+        Neos.Form: true
+        Neos.Twitter.Bootstrap: true
+        Neos.Neos: true
+       # TechDivision.DocViewer: true
 
     # Files are searched for as entry file
     entryFiles: [ 'Readme', 'index', 'Index' ]

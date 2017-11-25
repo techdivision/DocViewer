@@ -11,17 +11,17 @@ use TechDivision\DocViewer\Util;
  */
 class ResourceUrlViewHelper extends AbstractViewHelper
 {
-	/**
-	 * @Flow\Inject
-	 * @var \Neos\Flow\Package\PackageManagerInterface
-	 */
-	protected $packageManager;
+    /**
+     * @Flow\Inject
+     * @var \Neos\Flow\Package\PackageManagerInterface
+     */
+    protected $packageManager;
 
-	/**
-	 * @param string $package
-	 * @param string $filePath
-	 * @return string
-	 */
+    /**
+     * @param string $package
+     * @param string $filePath
+     * @return string
+     */
     public function render($package, $filePath)
     {
         return Util::buildResourceUrl(new Node($this->packageManager->getPackage($package), $filePath), null, $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());

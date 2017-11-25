@@ -14,6 +14,10 @@ Some examples:
 
 [External link](https://google.com/)
 
+[Internal link other package](package://Vendor.Package)
+
+[Internal link other package](package://Vendor.Package/Reference.md)
+
 *This text will be italic*
 
 _This will also be italic_
