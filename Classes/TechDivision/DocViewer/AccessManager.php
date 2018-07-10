@@ -31,7 +31,7 @@ class AccessManager extends AbstractModuleController
      * @return bool
      */
     public function isPackageAccessable($packageKey) {
-        return $this->packageManager->isPackageActive($packageKey) &&
+        return $this->packageManager->isPackageAvailable($packageKey) &&
         (!array_key_exists($packageKey, $this->packagesConfiguration['hide']) ||
             !$this->packagesConfiguration['hide'][$packageKey]
         );
