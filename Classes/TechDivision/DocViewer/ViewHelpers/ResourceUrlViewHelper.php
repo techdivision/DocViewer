@@ -18,12 +18,25 @@ class ResourceUrlViewHelper extends AbstractViewHelper
     protected $packageManager;
 
     /**
-     * @param string $package
-     * @param string $filePath
+     * Initialize the arguments.
+     *
+     * @return void
+     * @api
+     */
+    public function initializeArguments()
+    {
+        $this->registerArgument('package', 'string', 'Package key for the resource', false, null);
+        $this->registerArgument('filePath', 'string', 'File path for the resource', false, null);
+    }
+
+    /**
      * @return string
      */
-    public function render($package, $filePath)
+    public function render()
     {
-        return Util::buildResourceUrl(new Node($this->packageManager->getPackage($package), $filePath), null, $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
+
+        $package = $this->arguments['package'];
+        $filePath = $this->arguments['filePath'];
+        return Util::buildResourceUrl(new Node($this->packageManager->getPackage($package), $filePath), null, $this->controllerContext->getRequest()->getHttpRequest()->getUri());
     }
 }

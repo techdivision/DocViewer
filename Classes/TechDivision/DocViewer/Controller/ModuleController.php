@@ -74,7 +74,7 @@ class ModuleController extends AbstractModuleController
                 continue;
             }
 
-            $tree = new Tree($package, $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri());
+            $tree = new Tree($package, $this->controllerContext->getRequest()->getHttpRequest()->getUri());
 
             if(!$tree->isDirectoryWithContent()) {
                 continue;
@@ -103,7 +103,7 @@ class ModuleController extends AbstractModuleController
      * @return void
      */
     public function showAction($package, $filePath = null) {
-        $baseUri = $this->controllerContext->getRequest()->getHttpRequest()->getBaseUri();
+        $baseUri = $this->controllerContext->getRequest()->getHttpRequest()->getUri();
 
         if (!$this->accessManager->isPackageAccessable($package)) {
             throw new PackageNotAccessibleException("You are not allowed to access the package " . $package);
