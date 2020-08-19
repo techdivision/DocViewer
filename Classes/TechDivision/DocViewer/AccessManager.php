@@ -2,6 +2,7 @@
 namespace TechDivision\DocViewer;
 
 use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Package\PackageInterface;
 use Neos\Neos\Controller\Module\AbstractModuleController;
 
 /**
@@ -20,7 +21,7 @@ class AccessManager extends AbstractModuleController
 
     /**
      * @Flow\Inject
-     * @var \Neos\Flow\Package\PackageManagerInterface
+     * @var \Neos\Flow\Package\PackageManager
      */
     protected $packageManager;
 
@@ -31,10 +32,9 @@ class AccessManager extends AbstractModuleController
      * @return bool
      */
     public function isPackageAccessable($packageKey) {
-        return $this->packageManager->isPackageActive($packageKey) &&
-        (!array_key_exists($packageKey, $this->packagesConfiguration['hide']) ||
-            !$this->packagesConfiguration['hide'][$packageKey]
-        );
+
+        $packages = $this->packageManager->getAvailablePackages();
+        return isset($packages[$packageKey]);
     }
 
 }
