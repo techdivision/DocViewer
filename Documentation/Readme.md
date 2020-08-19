@@ -12,6 +12,8 @@ Some examples:
 
 [Internal link subSubdir](subdir/subSubDir/Reference.md)
 
+[Internal link File](assets/TechDivisionLogo.jpeg)
+
 [External link](https://google.com/)
 
 [Internal link other package](package://Vendor.Package)

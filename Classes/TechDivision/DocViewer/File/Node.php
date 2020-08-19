@@ -175,12 +175,7 @@ class Node {
      */
     public function getPackageKey()
     {
-        // very dirty workaround, refactoring soon
-        if(is_string($this->package)) {
-            return $this->package;
-        }else {
-            return $this->package->getPackageKey();
-        }
+        return $this->package->getPackageKey();
     }
 
 }

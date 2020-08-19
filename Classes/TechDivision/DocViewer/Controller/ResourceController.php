@@ -56,7 +56,7 @@ class ResourceController extends \Neos\Flow\Mvc\Controller\ActionController
         }
 
         $contentType = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $filePath);
-        $this->response->setHeader("Content-Type", $contentType);
+        $this->getControllerContext()->getResponse()->setContentType($contentType);
 
         return file_get_contents($filePath);
 

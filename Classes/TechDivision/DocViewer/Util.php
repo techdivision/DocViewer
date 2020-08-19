@@ -53,7 +53,7 @@ class Util {
             $path = join("/", $sourcePathElements);
         }
 
-        return $baseUri . 'neos/techdivision-docviewer/' . $node->getPackageKey() . "/" . self::urlEncodeFilePath($path);
+        return '/neos/techdivision-docviewer/' . $node->getPackageKey() . "/" . self::urlEncodeFilePath($path);
     }
 
     /**
