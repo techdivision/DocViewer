@@ -1,15 +1,6 @@
 /**
  * Setup and merge configuration
  */
-
-// define dependencies
-var gulp        = require('gulp'),
-    gutil       = require('gulp-util'),
-    plugins = require("gulp-load-plugins"),
-    fs = require('fs'),
-    merge       = require('merge');
-
-
 // define configuration for task usage
 var configuration = {
     scssFiles: [
