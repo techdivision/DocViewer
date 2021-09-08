@@ -15,7 +15,6 @@
     "url": "ssh://git@gitlab.cms.tdintern.de:10022/wittem/docviewer.git"
   },
   "dependencies": {
-    "merge": "^1.2.0",
     "td-neos-build": "git+ssh://git@gitlab.cms.tdintern.de:10022/neos/build.git"
   },
   "license": "OSL-3.0"
