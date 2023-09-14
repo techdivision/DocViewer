@@ -16,7 +16,7 @@
     ],
     "license": "GPL-3.0+",
     "require": {
-        "neos/neos": "^5.0 || ^7.0",
+        "neos/neos": "^5.0 || ^7.0 || ^8.0",
         "erusev/parsedown": "1.6.*"
     },
     "autoload": {
